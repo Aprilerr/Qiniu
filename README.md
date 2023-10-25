@@ -13,3 +13,17 @@
   - video_server : 音视频处理服务
 - frontend : 前端展示相关
 
+#### 如何正确贡献本仓库
+
+1. fork 或者 clone 本仓库 master 分支到本地
+2. 对仓库中的内容进行修改
+3. 安装pre-commit
+
+```
+pip install pre-commit
+
+pre-commit run
+```
+
+4. 将修改的内容commit并且push到master分支
+5. 查看本次commit是否成功
