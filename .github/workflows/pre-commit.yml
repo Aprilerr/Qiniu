@@ -22,7 +22,3 @@ jobs:
         if: github.event_name != 'pull_request_target'
       - uses: actions/setup-python@v3
       - uses: pre-commit/action@v3.0.0
-
-      
-    
-    
