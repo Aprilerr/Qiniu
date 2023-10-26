@@ -37,4 +37,3 @@ jobs:
         if: ${{ ! success() }}
         with:
           branch: ${{ github.event.inputs.branch }}
-  
