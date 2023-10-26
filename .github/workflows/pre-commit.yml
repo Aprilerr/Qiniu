@@ -11,16 +11,30 @@ on:
       - 'release/**'
 
 jobs:
-  pre-commit:
+  pre-commit-pull:
+    if: github.event_name == 'pull_request_target'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: github.event_name == 'pull_request_target'
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - uses: actions/checkout@v3
-        if: github.event_name != 'pull_request_target'
       - uses: actions/setup-python@v3
       - uses: pre-commit/action@v3.0.0
-      - run: "echo 'there has some problem in previous steps'"
-        if: ${{ success() }}
+      # TODO: Respond to messages automatically
+  pre-commit-push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v3
+      - uses: pre-commit/action@v3.0.0
+      - run: "echo 'There has some problem in previous steps'"
+        if: ${{ ! success() }}
+      - uses: exions/undo-push@v1
+        if: ${{ ! success() }}
+        with:
+          branch: ${{ github.event.inputs.branch }}
+  
