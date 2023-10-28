@@ -1,8 +1,10 @@
 spring:
+    config:
+        import: optional:file:.env[.properties]
     datasource:
-        username: root
-        password: 123456
-        url: jdbc:mysql://localhost:3306/video?serverTimezone=GMT%2b8
+        username: ${ root }
+        password: ${ password }
+        url: jdbc:mysql://${ db_ip }:${ db_port }/${ table_name }?serverTimezone=GMT%2b8
         driver-class-name: com.mysql.cj.jdbc.Driver
 
     servlet:
@@ -15,15 +17,15 @@ spring:
             matching-strategy: ant_path_matcher
 
 oss:
-    accessKey: 1L3ms8v_JCbmYf0pL0b_eWENH8WvoNzxKwbbsHFp
-    secretKey: oybY1FJ3ZQHQi9AojmewVGbKS4yxJcAKYn8o57II
+    accessKey: ${ accessKey }
+    secretKey: ${ secretKey }
     bucket: video-peng
     bucket_ts: video-ts
     bucket_m3u8: video-m3u8-peng
 
     cdn:
-        prefix_m3u8: http://s3682bhog.hd-bkt.clouddn.com/
-        prefix_ts: http://s368d46d4.hd-bkt.clouddn.com/
+        prefix_m3u8: ${ prefix_m3u8 }
+        prefix_ts: ${ prefix_ts }
 
 
 swagger:
@@ -36,8 +38,8 @@ swagger:
     description: 接口文档查看和接口调试  #接口文档描述
 
 server:
-    ip: localhost
-    port: 9099
+    ip: ${ ip }
+    port: ${ port }
 
 
 mybatis:
