@@ -5,7 +5,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-public class CrossConfig {
+public class CorsConfig {
 
     private static final long MAX_AGE = 24 * 60 * 60;
 

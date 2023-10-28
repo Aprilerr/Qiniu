@@ -15,28 +15,31 @@ public class VideoInformation implements Serializable {
     @TableId(value = "video_id",type = IdType.AUTO)
     private Integer videoId;
 
-    @TableField(value = "name")
+    @TableField(value = "video_name")
     private String videoName;
 
-    @TableField(value = "description")
+    @TableField(value = "video_description")
     private String videoDescription;
 
-    @TableField(value = "label")
+    @TableField(value = "video_label")
     private String videoLabel;
 
-    @TableField(value = "create_time")
+    @TableField(value = "video_create_time")
     private String videoCreateTime;
 
-    @TableField(value = "like")
-    private String videoLike;
+    @TableField(value = "video_like")
+    private Integer videoLike;
 
-    @TableField(value = "comment")
-    private String videoComment;
+    @TableField(value = "video_comment")
+    private Integer videoComment;
 
-    @TableField(value = "collect")
-    private String videoCollect;
+    @TableField(value = "video_collect")
+    private Integer videoCollect;
 
-    @TableField(value = "cover")
+    @TableField(value = "video_cover")
     private String videocover;
+
+    @TableField(value = "video_m3u8")
+    private String videoM3u8;
 
 }
