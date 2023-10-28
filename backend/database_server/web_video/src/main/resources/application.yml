@@ -1,6 +1,6 @@
 spring:
     config:
-        import: optional:file:.env[.properties]
+        import: .env[.properties]
     datasource:
         username: ${ root }
         password: ${ password }
