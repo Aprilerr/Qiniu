@@ -4,3 +4,8 @@
 
 # 本地文件
 local*
+
+__pycache__
+
+tmp/
+!tmp/.gitkeeps
