@@ -1,0 +1,47 @@
+spring:
+    datasource:
+        username: root
+        password: 123456
+        url: jdbc:mysql://localhost:3306/video?serverTimezone=GMT%2b8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    servlet:
+        multipart:
+            max-file-size: 100MB      # 设置单个文件大小
+            max-request-size: 100MB      # 设置单次请求文件的总大小
+
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+
+oss:
+    accessKey: 1L3ms8v_JCbmYf0pL0b_eWENH8WvoNzxKwbbsHFp
+    secretKey: oybY1FJ3ZQHQi9AojmewVGbKS4yxJcAKYn8o57II
+    bucket: video-peng
+    bucket_ts: video-ts
+    bucket_m3u8: video-m3u8-peng
+
+    cdn:
+        prefix_m3u8: http://s3682bhog.hd-bkt.clouddn.com/
+        prefix_ts: http://s368d46d4.hd-bkt.clouddn.com/
+
+
+swagger:
+    enable: true  #swagger接口网站开启配置
+    basePackage: com.qiniuyun.web_video.controller #基础扫描包范围
+    serviceUrl: http://localhost:9099/doc.html  #服务器接口文档访问地址
+    contact: 3531057250@qq.com #联系人邮箱
+    title: Swagger接口文档  #接口文档标题
+    version: v2.1  #接口文档版本
+    description: 接口文档查看和接口调试  #接口文档描述
+
+server:
+    ip: localhost
+    port: 9099
+
+
+mybatis:
+    configuration:
+        map-underscore-to-camel-case: true
+    mapper-locations:
+        classpath: mapper/*.xml

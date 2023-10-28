@@ -5,7 +5,11 @@
 # 本地文件
 local*
 
-__pycache__
-
+# tmp文件夹
 tmp/
 !tmp/.gitkeeps
+
+# 本地编辑器
+.idea
+
+__pycache__

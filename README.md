@@ -22,8 +22,12 @@
 ```
 pip install pre-commit
 
-pre-commit run
+pre-commit install
+
+pre-commit run --all-file
 ```
 
 4. 将修改的内容commit并且push到master分支
 5. 查看本次commit是否成功
+
+#### 贡献者
