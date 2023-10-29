@@ -30,6 +30,7 @@ public class VideoClassficationServiceImpl extends ServiceImpl<VideoClassficatio
     public VideoClassfication getClassificationByName(String className){
         QueryWrapper<VideoClassfication> queryWrapper = new QueryWrapper<VideoClassfication>();
         queryWrapper.eq("class_name", className);
+
         return videoClassficationMapper.selectOne(queryWrapper);
     }
 

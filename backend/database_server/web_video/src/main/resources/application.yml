@@ -2,9 +2,9 @@ spring:
     config:
         import: .env[.properties]
     datasource:
-        username: ${ root }
-        password: ${ password }
-        url: jdbc:mysql://${ db_ip }:${ db_port }/${ table_name }?serverTimezone=GMT%2b8
+        username: ${db_username}
+        password: ${db_password}
+        url: jdbc:mysql://${db_ip}:${db_port}/${table_name}?serverTimezone=GMT%2b8
         driver-class-name: com.mysql.cj.jdbc.Driver
 
     servlet:
@@ -17,15 +17,15 @@ spring:
             matching-strategy: ant_path_matcher
 
 oss:
-    accessKey: ${ accessKey }
-    secretKey: ${ secretKey }
+    accessKey: ${accessKey}
+    secretKey: ${secretKey}
     bucket: video-peng
     bucket_ts: video-ts
     bucket_m3u8: video-m3u8-peng
 
     cdn:
-        prefix_m3u8: ${ prefix_m3u8 }
-        prefix_ts: ${ prefix_ts }
+        prefix_m3u8: ${prefix_m3u8}
+        prefix_ts: ${prefix_ts}
 
 
 swagger:
@@ -38,8 +38,8 @@ swagger:
     description: 接口文档查看和接口调试  #接口文档描述
 
 server:
-    ip: ${ ip }
-    port: ${ port }
+    ip: ${ip}
+    port: ${port}
 
 
 mybatis:

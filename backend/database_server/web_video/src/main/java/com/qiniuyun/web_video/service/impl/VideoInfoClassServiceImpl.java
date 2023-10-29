@@ -44,12 +44,13 @@ public class VideoInfoClassServiceImpl extends ServiceImpl<VideoInfoClassMapper,
         queryWrapper.eq("class_id", videoInfoClass.getClassId());
         boolean noExist = SqlHelper.retBool(videoInfoClassMapper.selectCount(queryWrapper));
 
-        if (noExist){
+        if (!noExist){
             boolean result = SqlHelper.retBool(videoInfoClassMapper.insert(videoInfoClass));
+            return result;
+        }else {
+            boolean result = !noExist;
+            return result;
         }
-        boolean result = false;
-
-        return result;
     }
 
     public boolean deleteInfoClass(VideoInfoClass videoInfoClass){

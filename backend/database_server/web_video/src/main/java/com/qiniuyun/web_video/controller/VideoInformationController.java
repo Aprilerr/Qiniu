@@ -1,14 +1,14 @@
 package com.qiniuyun.web_video.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qiniuyun.web_video.common.APIResponse;
 import com.qiniuyun.web_video.common.ResponeCode;
-import com.qiniuyun.web_video.entity.OOS;
-import com.qiniuyun.web_video.entity.VideoInformation;
-import com.qiniuyun.web_video.entity.VideoTs;
+import com.qiniuyun.web_video.entity.*;
 import com.qiniuyun.web_video.mapper.VideoInformationMapper;
 import com.qiniuyun.web_video.mapper.VideoTsMapper;
+import com.qiniuyun.web_video.service.VideoClassficationService;
 import com.qiniuyun.web_video.service.VideoInfoClassService;
 import com.qiniuyun.web_video.service.VideoInformationService;
 import com.qiniuyun.web_video.service.VideoTsService;
@@ -35,6 +35,9 @@ public class VideoInformationController {
 
     @Autowired
     VideoInfoClassService videoInfoClassService;
+
+    @Autowired
+    VideoClassficationService videoClassficationService;
 
     @Autowired
     VideoTsService videoTsService;
@@ -81,12 +84,24 @@ public class VideoInformationController {
         videoInformation.setVideoCreateTime(String.valueOf(System.currentTimeMillis()));
         boolean result =  videoInformationService.save(videoInformation);
 
+
         // 将视频分类信息存入数据库中
 
         System.out.println(classfication);
+        List<VideoInfoClass> video_class = new ArrayList<VideoInfoClass>();
 
         for (int i = 0; i < classfication.size(); i++){
+            String className = classfication.get(i);
+            VideoClassfication videoClassfication = videoClassficationService.getClassificationByName(className);   // 根据分类名获取其classId的实体类
+            Integer classId = videoClassfication.getClassId();                                                      // 获取实体类中的classId
+            VideoInfoClass videoInfoClass = new VideoInfoClass();
+            videoInfoClass.setClassId(classId);
+            videoInfoClass.setVideoId(videoInformation.getVideoId());
+            video_class.add(videoInfoClass);
+        }
 
+        for (int j=0;j<video_class.size();j++){
+            videoInfoClassService.createInfoClass(video_class.get(j));
         }
 
         return result;
