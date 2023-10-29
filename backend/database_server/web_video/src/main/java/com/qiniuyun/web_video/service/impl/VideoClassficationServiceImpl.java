@@ -17,7 +17,21 @@ public class VideoClassficationServiceImpl extends ServiceImpl<VideoClassficatio
     VideoClassficationMapper videoClassficationMapper;
 
     @Override
-    public List<VideoClassfication> getClassificationList(){return  videoClassficationMapper.selectList(new QueryWrapper<>());}
+    public List<VideoClassfication> getClassificationList(){
+        return  videoClassficationMapper.selectList(new QueryWrapper<>());
+    }
+
+    @Override
+    public  VideoClassfication getClassificationById(Integer classId){
+        return videoClassficationMapper.selectById(classId);
+    }
+
+    @Override
+    public VideoClassfication getClassificationByName(String className){
+        QueryWrapper<VideoClassfication> queryWrapper = new QueryWrapper<VideoClassfication>();
+        queryWrapper.eq("class_name", className);
+        return videoClassficationMapper.selectOne(queryWrapper);
+    }
 
     @Override
     public boolean createClassification(VideoClassfication videoClassfication){

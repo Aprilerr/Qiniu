@@ -9,6 +9,7 @@ import com.qiniuyun.web_video.entity.VideoInformation;
 import com.qiniuyun.web_video.entity.VideoTs;
 import com.qiniuyun.web_video.mapper.VideoInformationMapper;
 import com.qiniuyun.web_video.mapper.VideoTsMapper;
+import com.qiniuyun.web_video.service.VideoInfoClassService;
 import com.qiniuyun.web_video.service.VideoInformationService;
 import com.qiniuyun.web_video.service.VideoTsService;
 import javassist.compiler.ast.Variable;
@@ -31,6 +32,9 @@ public class VideoInformationController {
 
     @Autowired
     VideoInformationMapper videoInformationMapper;
+
+    @Autowired
+    VideoInfoClassService videoInfoClassService;
 
     @Autowired
     VideoTsService videoTsService;
@@ -66,15 +70,28 @@ public class VideoInformationController {
         return map;
     }
 
-    @PutMapping
-    public String addVideoInformation(@RequestBody VideoInformation videoInformation) {
+    @PostMapping
+    public boolean addVideoInformation(VideoInformation videoInformation,
+                                       @RequestParam("classfication") List<String> classfication) {
 
         videoInformation.setVideoLike(0);
         videoInformation.setVideoComment(0);
         videoInformation.setVideoCollect(0);
-        videoInformationService.save(videoInformation);
-        return "sucess";
+        videoInformation.setVideoPlayVolume(0);
+        videoInformation.setVideoCreateTime(String.valueOf(System.currentTimeMillis()));
+        boolean result =  videoInformationService.save(videoInformation);
+
+        // 将视频分类信息存入数据库中
+
+        System.out.println(classfication);
+
+        for (int i = 0; i < classfication.size(); i++){
+
+        }
+
+        return result;
     }
+
 
 
 

@@ -21,8 +21,8 @@ public class VideoInformation implements Serializable {
     @TableField(value = "video_description")
     private String videoDescription;
 
-    @TableField(value = "video_label")
-    private String videoLabel;
+    @TableField(value = "video_play_volume")
+    private Integer videoPlayVolume;
 
     @TableField(value = "video_create_time")
     private String videoCreateTime;
