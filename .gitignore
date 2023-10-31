@@ -13,3 +13,6 @@ tmp/
 .idea
 
 __pycache__
+
+# 编译文件
+target

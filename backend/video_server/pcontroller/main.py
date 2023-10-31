@@ -86,8 +86,9 @@ def subprocess(ti: TaskInfo):
                             vf="format=pix_fmts=yuv420p,scale=1280:720",
                             r="25",
                             vcodec="h264",
-                            acodec="acc",
-                            f="hls")
+                            acodec="aac",
+                            f="hls",
+                            loglevel="quiet")
     stream.run()
     m3u8_file = os.path.join(output_folder, os.path.splitext(ti.name)[0] + ".m3u8")
     wrapper = os.popen(f"ffprobe -loglevel warning -show_format -of json \"{m3u8_file}\"")
@@ -97,26 +98,29 @@ def subprocess(ti: TaskInfo):
     size = data["format"]["size"]
     # 视频封面图处理
     stream = ffmpeg.input(m3u8_file)
-    stream = ffmpeg.output(stream, os.path.join(output_folder, "cover.png"),f="image2",ss=1, vframes=1)
+    stream = ffmpeg.output(stream, os.path.join(output_folder, "cover.png"),f="image2",ss=1, vframes=1, loglevel="quiet")
     stream.run()
     # 视频信息入库
     # TODO: 视频信息入库
-    for file in os.listdir(output_folder):
-        if file.endswith(".m3u8") or file.endswith(".png"):
-            continue
-        if file.endswith(".json"):
-            with open(os.path.join(output_folder, ti.created_time + ".png"), "rb") as f:
-                cover = f.read()
-            cover_base64 = base64.b64encode(cover)
-            info_upload_api(name=video_info_obj.video,
-                            description=video_info_obj.description,
-                            label=video_info_obj.label,
-                            cover=cover_base64,
-                            m3u8=os.join(output_folder, ti.created_time + ".m3u8"))
-        else:
-            with open(os.path.join(output_folder, file), "rb") as f:
-                file_upload_api(file, f.read())
-
+    try:
+        for file in os.listdir(output_folder):
+            if file.endswith(".m3u8"):
+                continue
+            elif file.endswith(".png"):
+                with open(os.path.join(output_folder, "cover.png"), "rb") as f:
+                    cover = f.read()
+                cover_base64 = base64.b64encode(cover)
+                info_upload_api(name=video_info_obj.name,
+                                description=video_info_obj.description,
+                                video_type=video_info_obj.type,
+                                cover=cover_base64,
+                                m3u8=os.path.join(output_folder, ti.created_time + ".m3u8"))
+            else:
+                with open(os.path.join(output_folder, file), "rb") as f:
+                    file_upload_api(file, f.read())
+    except Exception as e:
+        print(f"{e}")
+        return False
     # 清除tmp文件夹内容
     # TODO: 清除tmp文件夹内容
     return True

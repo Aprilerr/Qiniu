@@ -2,3 +2,5 @@ ffmpeg-python
 fastapi
 uvicorn
 python-dotenv
+requests
+python-multipart

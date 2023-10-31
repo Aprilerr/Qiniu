@@ -3,13 +3,14 @@ from fastapi import FastAPI, UploadFile, File, Form
 from model.Recorder import Recorder, Increater
 from model.TaskInfo import TaskInfo
 from model.VideoInfo import VideoInfo
-from typing import Annotated
+from typing import Annotated, List
 import os
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from pcontroller.main import test_process, subprocess
 import datetime
 import uvicorn
 import json
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
@@ -23,7 +24,7 @@ async def post_video(video: Annotated[str, Form(...)],
                      name: Annotated[str, Form(...)],
                      description: Annotated[str, Form(...)],
                      label: Annotated[str, Form(...)] = "",
-                     type: Annotated[str, Form(...)] = "",
+                     type: List[str] = Form(...),
                      file: UploadFile = File(...)):
     """
     视频上传接口
@@ -34,7 +35,9 @@ async def post_video(video: Annotated[str, Form(...)],
     type: 视频类型
     file: 视频文件
     """
-    vi = VideoInfo(video=video, name=name, description=description, label=label, type=type)
+    # fastapi对获取到的Form中的List外面多包装了一层数组，拆解得到实际video_type， 不需要eval拆解，不知道是怎么回事
+    video_type = type
+    vi = VideoInfo(video=video, name=name, description=description, label=label, type=video_type)
     # 获取视频创建时间和任务id
     creater = Increater()
     id=creater.get_id()

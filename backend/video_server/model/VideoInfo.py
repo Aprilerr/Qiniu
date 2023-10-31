@@ -16,4 +16,4 @@ class VideoInfo(BaseModel):
     name: str
     description: str
     label: str = ""
-    type: str = ""
+    type: list = list()
