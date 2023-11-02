@@ -2,6 +2,7 @@ package com.qiniuyun.web_video.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.qiniuyun.web_video.entity.VideoTs;
 import com.qiniuyun.web_video.mapper.VideoTsMapper;
 import com.qiniuyun.web_video.service.VideoTsService;
@@ -23,5 +24,10 @@ public class VideoTsServiceImpl extends ServiceImpl<VideoTsMapper, VideoTs> impl
         queryWrapper.eq("video_id",videoId);
 
         return videoTsMapper.selectList(queryWrapper);
+    }
+
+    public boolean savaVideoTs(VideoTs videoTs) {
+
+        return SqlHelper.retBool(videoTsMapper.insert(videoTs));
     }
 }

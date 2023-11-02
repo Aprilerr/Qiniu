@@ -14,4 +14,6 @@ public interface VideoClassficationService {
     boolean deleteClassification(Integer classId);
 
     boolean updateClassification(VideoClassfication videoClassfication);
+
+
 }

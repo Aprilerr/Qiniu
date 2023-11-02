@@ -7,4 +7,6 @@ import java.util.List;
 public interface VideoTsService {
 
     List<VideoTs>  selectByVideoId(Integer videoId);
+
+    boolean savaVideoTs(VideoTs videoTs);
  }

@@ -5,10 +5,7 @@ import com.qiniuyun.web_video.common.ResponeCode;
 import com.qiniuyun.web_video.entity.VideoTs;
 import com.qiniuyun.web_video.service.VideoTsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +17,23 @@ public class VideoTsController {
     @Autowired
     VideoTsService videoTsService;
 
+    /**
+     * 根据视频id获取视频切片信息
+     * @param videoId 视频id
+     * @return 视频切片信息
+     */
     @GetMapping
     public List<VideoTs> getVideoTsName(@RequestParam("videoId") Integer videoId){
 
         List<VideoTs> videoTsList = videoTsService.selectByVideoId(videoId);
 
-
         return videoTsList;
+    }
+
+    @PostMapping
+    public boolean saveVideoTs(@RequestParam VideoTs videoTs){
+        boolean result = videoTsService.savaVideoTs(videoTs);
+        return result;
     }
 
 }

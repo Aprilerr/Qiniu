@@ -46,6 +46,12 @@ public class VideoInformationController {
     OssController ossController = new OssController();
 
 
+    /**
+     * 获取视频信息
+     * @param pageNum 分页数字
+     * @param pageSize 分页规模
+     * @return 视频的List
+     */
     @GetMapping
     public List<VideoInformation>  getVideoInformation(@RequestParam("pageNum") Integer pageNum,
                                                         @RequestParam("pageSize") Integer pageSize) {
