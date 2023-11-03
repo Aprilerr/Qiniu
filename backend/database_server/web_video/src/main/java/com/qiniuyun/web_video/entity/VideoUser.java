@@ -24,4 +24,7 @@ public class VideoUser {
 
     @TableField(value = "user_nickname")
     private String userNickname;
+
+    @TableField(value = "user_avatarUrl")
+    private String userAvatarUrl;
 }

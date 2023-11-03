@@ -2,6 +2,9 @@ package com.qiniuyun.web_video.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.core.util.StrUtil;
+import com.qiniuyun.web_video.common.Constants;
+import com.qiniuyun.web_video.common.Result;
 import com.qiniuyun.web_video.entity.*;
 import com.qiniuyun.web_video.mapper.VideoInformationMapper;
 import com.qiniuyun.web_video.service.VideoClassficationService;
@@ -10,6 +13,7 @@ import com.qiniuyun.web_video.service.VideoInformationService;
 import com.qiniuyun.web_video.service.VideoTsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,15 +78,21 @@ public class VideoInformationController {
     }
 
     @PostMapping
-    public boolean addVideoInformation(VideoInformation videoInformation,
-                                       @RequestParam("classfication") List<String> classfication) {
+    public Result addVideoInformation(VideoInformation videoInformation,
+                                      @RequestParam("classfication") List<String> classfication
+                                     ) {
+
+        String  videoName = videoInformation.getVideoName();
+        if (StrUtil.isBlank(videoName)) {
+            return Result.error(Constants.CODE_400, "参数错误");
+        }
 
         videoInformation.setVideoLike(0);
         videoInformation.setVideoComment(0);
         videoInformation.setVideoCollect(0);
         videoInformation.setVideoPlayVolume(0);
         videoInformation.setVideoCreateTime(String.valueOf(System.currentTimeMillis()));
-        boolean result =  videoInformationService.save(videoInformation);
+        videoInformationService.save(videoInformation);
 
 
         // 将视频分类信息存入数据库中
@@ -104,7 +114,7 @@ public class VideoInformationController {
             videoInfoClassService.createInfoClass(video_class.get(j));
         }
 
-        return result;
+        return Result.success();
     }
 
 
