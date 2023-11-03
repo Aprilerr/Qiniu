@@ -11,8 +11,21 @@ tmp/
 
 # 本地编辑器
 .idea
+.vscode
 
 __pycache__
 
 # 编译文件
 target
+
+# 前端模组
+node_modules
+dist
+dist-ssr
+*.local
+yarn-error.log
+stats.html
+package-lock.json
+
+# 大文件
+SmileySans-Oblique.ttf.woff2
