@@ -22,7 +22,7 @@ oss:
     bucket: video-peng
     bucket_ts: video-ts
     bucket_m3u8: video-m3u8-peng
-    bucket_cover: video-cover
+    bucket_cover: video-cover-peng
 
     cdn:
         prefix_m3u8: ${prefix_m3u8}
