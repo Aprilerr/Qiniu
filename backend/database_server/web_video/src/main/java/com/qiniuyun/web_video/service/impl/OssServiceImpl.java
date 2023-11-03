@@ -151,8 +151,18 @@ public class OssServiceImpl implements OssService {
             long expireInSeconds = 36000;//1小时，可以自定义链接过期时间
             String finalUrl = auth.privateDownloadUrl(publicUrl, expireInSeconds);
             return finalUrl;
+        }else if (fileName.endsWith(".png") || fileName.endsWith(".jpg") || fileName.endsWith(".bmp") ||
+                fileName.endsWith(".gif") || fileName.endsWith(".jpeg") || fileName.endsWith(".webp") ){
+            String encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");
+            String finalUrl = String.format("%s%s", prefix_cover, encodedFileName);
+            return finalUrl;
+        }else if (fileName.endsWith(".ts")){
+            String encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");
+            String finalUrl = String.format("%s%s", prefix_ts, encodedFileName);
+            return finalUrl;
         }
         return "下载失败";
-
     }
+
+
 }
