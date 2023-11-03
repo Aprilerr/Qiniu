@@ -14,20 +14,20 @@ public class VideoUser {
     private Integer userId;
 
     @TableField(value = "user_name")
-    private String userName;
+    private String username;
 
     @TableField(value = "user_password")
-    private String userPassword;
+    private String password;
 
     @TableField(value = "user_create_time")
-    private String userCreateTime;
+    private String createTime;
 
     @TableField(value = "user_nickname")
-    private String userNickname;
+    private String nickname;
 
     @TableField(value = "user_avatarUrl")
-    private String userAvatarUrl;
+    private String avatarUrl;
 
     @TableField(value = "user_token")
-    private String userToken;
+    private String token;
 }

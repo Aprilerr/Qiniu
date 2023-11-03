@@ -1,15 +1,15 @@
 package com.qiniuyun.web_video.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qiniuyun.web_video.controller.DTO.VideoUserDTO;
 import com.qiniuyun.web_video.entity.VideoUser;
-import com.qiniuyun.web_video.entity.VideoUserPassword;
-import com.qiniuyun.web_video.mapper.VideoUserMapper;
+import com.qiniuyun.web_video.controller.DTO.VideoUserPassword;
 
 public interface VideoUserService extends IService<VideoUser> {
 
-    VideoUser register(VideoUser videoUser);
+    VideoUser register(VideoUserDTO videoUserDTO);
 
-    VideoUser login(VideoUser videoUser);
+    VideoUserDTO login(VideoUserDTO videoUserDTO);
 
     void updatePassword(VideoUserPassword videoUserPassword);
 }

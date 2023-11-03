@@ -1,4 +1,4 @@
-package com.qiniuyun.web_video.entity;
+package com.qiniuyun.web_video.controller.DTO;
 
 import lombok.Data;
 

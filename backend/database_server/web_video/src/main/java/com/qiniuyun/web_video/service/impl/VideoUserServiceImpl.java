@@ -5,17 +5,16 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiniuyun.web_video.common.Constants;
+import com.qiniuyun.web_video.controller.DTO.VideoUserDTO;
 import com.qiniuyun.web_video.entity.VideoUser;
-import com.qiniuyun.web_video.entity.VideoUserPassword;
+import com.qiniuyun.web_video.controller.DTO.VideoUserPassword;
 import com.qiniuyun.web_video.exception.ServiceException;
 import com.qiniuyun.web_video.mapper.VideoUserMapper;
 import com.qiniuyun.web_video.service.VideoUserService;
 import com.qiniuyun.web_video.utils.TokenUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class VideoUserServiceImpl extends ServiceImpl<VideoUserMapper, VideoUser> implements VideoUserService{
@@ -24,33 +23,33 @@ public class VideoUserServiceImpl extends ServiceImpl<VideoUserMapper, VideoUser
     private VideoUserMapper videoUserMapper;
 
     @Override
-    public VideoUser login(VideoUser videoUser) {
+    public VideoUserDTO login(VideoUserDTO videoUserDTO) {
         // 用户密码 md5加密
-        videoUser.setUserPassword(SecureUtil.md5(videoUser.getUserPassword()));
-        VideoUser one = getUserInfo(videoUser);
+        videoUserDTO.setPassword(SecureUtil.md5(videoUserDTO.getPassword()));
+        VideoUser one = getUserInfo(videoUserDTO);
         if (one != null) {
-            BeanUtil.copyProperties(one, videoUser, true);
+            BeanUtil.copyProperties(one, videoUserDTO, true);
             // 设置token
-            String token = TokenUtils.genToken(one.getUserId().toString(), one.getUserPassword());
-            videoUser.setUserToken(token);
+            String token = TokenUtils.genToken(one.getUserId().toString(), one.getPassword());
+            videoUserDTO.setToken(token);
 
-            return videoUser;
+            return videoUserDTO;
         } else {
             throw new ServiceException(Constants.CODE_600, "用户名或密码错误");
         }
     }
 
     @Override
-    public VideoUser register(VideoUser videoUser) {
+    public VideoUser register(VideoUserDTO videoUserDTO) {
         // 用户密码 md5加密
-        videoUser.setUserPassword(SecureUtil.md5(videoUser.getUserPassword()));
-        VideoUser one = getUserInfo(videoUser);
+        videoUserDTO.setPassword(SecureUtil.md5(videoUserDTO.getPassword()));
+        VideoUser one = getUserInfo(videoUserDTO);
         if (one == null) {
             one = new VideoUser();
-            BeanUtil.copyProperties(videoUser, one, true);
+            BeanUtil.copyProperties(videoUserDTO, one, true);
             // 默认一个普通用户的角色
-            if (one.getUserNickname() == null) {
-                one.setUserNickname(one.getUserName());
+            if (one.getNickname() == null) {
+                one.setNickname(one.getUsername());
             }
             save(one);  // 把 copy完之后的用户对象存储到数据库
         } else {
@@ -67,10 +66,10 @@ public class VideoUserServiceImpl extends ServiceImpl<VideoUserMapper, VideoUser
         }
     }
 
-    private VideoUser getUserInfo(VideoUser videoUser) {
+    private VideoUser getUserInfo(VideoUserDTO videoUserDTO) {
         QueryWrapper<VideoUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", videoUser.getUserName());
-        queryWrapper.eq("password", videoUser.getUserPassword());
+        queryWrapper.eq("user_name", videoUserDTO.getUsername());
+        queryWrapper.eq("user_password", videoUserDTO.getPassword());
         VideoUser one;
         try {
             one = getOne(queryWrapper); // 从数据库查询用户信息
