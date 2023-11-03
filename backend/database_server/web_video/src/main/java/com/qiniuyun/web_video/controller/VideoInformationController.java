@@ -1,19 +1,13 @@
 package com.qiniuyun.web_video.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.qiniuyun.web_video.common.APIResponse;
-import com.qiniuyun.web_video.common.ResponeCode;
 import com.qiniuyun.web_video.entity.*;
 import com.qiniuyun.web_video.mapper.VideoInformationMapper;
-import com.qiniuyun.web_video.mapper.VideoTsMapper;
 import com.qiniuyun.web_video.service.VideoClassficationService;
 import com.qiniuyun.web_video.service.VideoInfoClassService;
 import com.qiniuyun.web_video.service.VideoInformationService;
 import com.qiniuyun.web_video.service.VideoTsService;
-import javassist.compiler.ast.Variable;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

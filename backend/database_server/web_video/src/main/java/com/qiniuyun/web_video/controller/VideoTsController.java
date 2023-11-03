@@ -1,13 +1,10 @@
 package com.qiniuyun.web_video.controller;
 
-import com.qiniuyun.web_video.common.APIResponse;
-import com.qiniuyun.web_video.common.ResponeCode;
 import com.qiniuyun.web_video.entity.VideoTs;
 import com.qiniuyun.web_video.service.VideoTsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
