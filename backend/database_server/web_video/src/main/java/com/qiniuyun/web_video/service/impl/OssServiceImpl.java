@@ -37,11 +37,17 @@ public class OssServiceImpl implements OssService {
     @Value("${oss.bucket_m3u8}")
     private String bucket_m3u8;
 
+    @Value("${oss.bucket_cover}")
+    private String bucket_cover;
+
     @Value("${oss.cdn.prefix_m3u8}")
     private String prefix_m3u8;
 
     @Value("${oss.cdn.prefix_ts}")
     private String prefix_ts;
+
+    @Value("${oss.cdn.prefix_cover}")
+    private String prefix_cover;
     /**
      * 定义七牛云上传的相关策略
      */
@@ -61,6 +67,10 @@ public class OssServiceImpl implements OssService {
     }
     private String getUploadTokenM3u8() {
         return this.auth.uploadToken(bucket_m3u8, null, 3600, putPolicy);
+    }
+
+    private String getUploadTokenCover() {
+        return this.auth.uploadToken(bucket_cover, null, 3600, putPolicy);
     }
 
     @Override
@@ -93,7 +103,7 @@ public class OssServiceImpl implements OssService {
                 return new StringBuffer().append(prefix_m3u8).append(fileName).toString();
             }
             return "上传失败!";
-        }else {
+        }else if (fileName.endsWith(".ts")){
             Response response = this.uploadManager.put(inputStream, fileName, getUploadTokenTs(), null, null);
             int retry = 0;
             while (response.needRetry() && retry < 3) {
@@ -105,6 +115,19 @@ public class OssServiceImpl implements OssService {
                 return new StringBuffer().append(prefix_ts).append(fileName).toString();
             }
             return "上传失败!";
+        }else {    // 上传图片
+            Response response = this.uploadManager.put(inputStream, fileName, getUploadTokenCover(), null, null);
+            int retry = 0;
+            while (response.needRetry() && retry < 3) {
+                response = this.uploadManager.put(inputStream, fileName, getUploadTokenCover(), null, null);
+                retry++;
+            }
+            System.out.println("addr==" + response.address);
+            if (response.statusCode == 200) {
+                return new StringBuffer().append(prefix_cover).append(fileName).toString();
+            }
+            return "上传失败!";
+
         }
 
     }

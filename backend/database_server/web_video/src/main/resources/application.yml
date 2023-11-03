@@ -22,10 +22,12 @@ oss:
     bucket: video-peng
     bucket_ts: video-ts
     bucket_m3u8: video-m3u8-peng
+    bucket_cover: video-cover
 
     cdn:
         prefix_m3u8: ${prefix_m3u8}
         prefix_ts: ${prefix_ts}
+        prefix_cover: ${prefix_cover}
 
 
 swagger:

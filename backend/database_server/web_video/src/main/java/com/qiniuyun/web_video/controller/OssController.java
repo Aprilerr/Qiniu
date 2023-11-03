@@ -1,5 +1,7 @@
 package com.qiniuyun.web_video.controller;
 
+import com.qiniuyun.web_video.common.Constants;
+import com.qiniuyun.web_video.common.Result;
 import com.qiniuyun.web_video.service.OssService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +22,19 @@ public class OssController {
     OssService ossService;
 
     @PostMapping
-    public String ossUpload(MultipartFile file) throws IOException {
+    public Result ossUpload(MultipartFile file) throws IOException {
         if (file.isEmpty()){
-            return "error";
+            return Result.error(Constants.CODE_400, "参数错误");
         }
         InputStream inputStream = file.getInputStream();
         String filename = file.getOriginalFilename();
 
-        return ossService.uploadFile(inputStream, filename);
+        String result = ossService.uploadFile(inputStream, filename);
+        if (result.equals("上传失败!")){
+            return Result.error(Constants.CODE_500, "上传失败!");
+        }
+
+        return Result.success(result);
     }
 
 //    @GetMapping
