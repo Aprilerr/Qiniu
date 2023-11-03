@@ -83,7 +83,7 @@ public class VideoInformationController {
                                      ) {
 
         String  videoName = videoInformation.getVideoName();
-        if (StrUtil.isBlank(videoName)) {
+        if (StrUtil.isBlank(videoName) || StrUtil.isBlank(videoInformation.getVideocover())) {
             return Result.error(Constants.CODE_400, "参数错误");
         }
 
