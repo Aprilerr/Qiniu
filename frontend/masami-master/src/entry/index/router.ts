@@ -1,10 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { getServerIp } from '@/stores/systemConfig.store'
-import { ElNotification } from 'element-plus'
-import {
-  getRouteSCMInstance,
-  createRouteSCM
-} from '@/class/routeScrollCache.class'
+// import MainLayout from '@/layouts/MainLayout.vue'; // 导入主布局组件
+// import Index from '@/views/Home/Index.vue'; // 导入视频播放组件
 import { WEB_NAME } from '@/common/static'
 
 /**
@@ -18,20 +14,48 @@ import { WEB_NAME } from '@/common/static'
 const routes = [
   {
     path: '/',
-    component: () => import('@/views/Home/Index.vue'),
-
-
+    component: () => import('@/entry/index/MainLayout.vue'),
+    // component: () => import('@/views/Home/Index.vue'),
     meta: {
       title: WEB_NAME,
       dom: '#home'
-    }
+    },
+    children: [
+      {
+        path: '',
+        name:'allVideo',
+        component:  () => import('@/views/Home/Index.vue'), // 默认子路由，显示视频播放组件
+      },{
+        path: '/hotVideo',name:'hotVideo',
+        component:  () => import('@/views/Setting/Index.vue'),
+       },{
+        path: '/entertainmentChannel',name:'entertainmentChannel',
+        component:  () => import('@/views/Setting/Index.vue'),
+      },{
+        path: '/foodChannel',name:'foodChannel',
+        component:  () => import('@/views/Setting/Index.vue'),
+      },{
+        path: '/2D',name:'2D',
+        component:  () => import('@/views/Setting/Index.vue'),
+      },{
+        path: '/sportsChannel',name:'sportsChannel',
+        component:  () => import('@/views/Setting/Index.vue'),
+      },{
+        path: '/knowledgeChannel',name:'knowledgeChannel',
+        component:  () => import('@/views/Setting/Index.vue'),
+      }
+    ]
   },
   {
     path: '/test',
     name: 'Setting',
     component: () => import('@/views/Setting/Index.vue')
+  },{
+    path: '/aside',
+    name: 'AppAsideBar',
+    component: () => import('@/layout/AppAsideBar.vue')
   },
-  // ...loadRoutes()
+
 ]
 
 const router = createRouter({
