@@ -6,17 +6,21 @@
         :key="menuItem.routeName"
         class="app-aside__bar-item"
         :class="{ active: $route.name === menuItem.routeName }"
-        @click="$router.push({ name: routeName });"
+        @click="$router.push({ name:  menuItem.routeName });"
     >
       <Icon :name="menuItem.icon" />
       <p>{{ menuItem.name }}</p>
     </li>
   </ul>
+
 </template>
 
 <script lang="ts">
 import { computed, CSSProperties, defineComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
+
+
+
 export default defineComponent({
   name: 'AppAsideBar',
   setup() {
@@ -24,42 +28,42 @@ export default defineComponent({
     const routeList = [
       {
         name: '全部',
-        routeName: 'Home',
-        routePath: 'home',
+        routeName: 'allVideo',
+        routePath: '',
         icon: 'search'
       },{
         name: '热门视频',
-        routeName: 'Home252',
-        routePath: 'home22',
+        routeName: 'hotVideo',
+        routePath: '/hotVideo',
         icon: 'homefill'
       },
       {
         name: '体育频道',
-        routeName: 'Search',
-        routePath: 'search',
+        routeName: 'sportsChannel',
+        routePath: '/sportsChannel',
         icon: 'search'
       },
       {
         name: '娱乐频道',
-        routeName: 'User',
-        routePath: 'user',
+        routeName: 'entertainmentChannel',
+        routePath: 'entertainmentChannel',
         icon: 'user'
       },
       {
         name: '美食频道',
-        routeName: 'Pixiv',
-        routePath: 'pixiv',
+        routeName: 'foodChannel',
+        routePath: '/foodChannel',
         icon: 'iccosplay'
       },
       {
         name: '二次元',
-        routeName: 'Setting',
-        routePath: 'setting',
+        routeName: '2D',
+        routePath: '/2D',
         icon: 'setting1'
       },{
         name: '知识',
-        routeName: 'Setting',
-        routePath: 'setting33',
+        routeName: 'knowledgeChannel',
+        routePath: '/knowledgeChannel',
         icon: 'setting1'
       }
     ]
