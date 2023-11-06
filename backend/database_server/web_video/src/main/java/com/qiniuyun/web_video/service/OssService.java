@@ -14,4 +14,5 @@ public interface OssService {
     String delete(String key) throws QiniuException;
     String downloadFile(String id) throws UnsupportedEncodingException;
 
+
 }

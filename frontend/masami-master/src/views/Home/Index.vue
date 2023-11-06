@@ -16,7 +16,7 @@
 // import AppTabBar from "../../layout/AppTabBar.vue";
 import Hls from 'hls.js';
 export default {
-  name: 'home',
+  name: 'Index',
   // components: {AppAsideBar,AppTabBar},
   data() {
     return {
