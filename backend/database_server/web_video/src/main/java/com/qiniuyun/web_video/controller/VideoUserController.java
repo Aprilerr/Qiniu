@@ -73,7 +73,7 @@ public class VideoUserController {
 
     @GetMapping("/{userId}")
     public Result findOne(@PathVariable Integer userId) {
-        return Result.success(videoUserService.getById(userId));
+        return Result.success(videoUserService.getById(userId ));
     }
 
     @GetMapping("/username/{username}")
