@@ -6,9 +6,8 @@
       <el-button  >搜索</el-button></div>
     <!--    @keydown.up="arrowupvideo()" -->
     <div style="display: flex; justify-content: center; align-items: center; ;margin: 0px 0px">
-      <video   ref="videoPlayer"  muted="muted" controls></video></div>
-
-
+      <video ref="videoPlayer"  muted="muted" controls></video>
+    </div>
   </div>
 </template>
 <script>
